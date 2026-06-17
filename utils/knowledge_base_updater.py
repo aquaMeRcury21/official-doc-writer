@@ -99,9 +99,9 @@ def process_all(source_dir: str | Path | None = None) -> dict:
     source_dir = Path(source_dir)
 
     if not source_dir.is_dir():
-        msg = f'目录不存在: {source_dir}'
-        logger.error(msg)
-        return {'error': msg, 'processed': 0}
+        logger.warning('目录不存在，自动创建: %s', source_dir)
+        source_dir.mkdir(parents=True, exist_ok=True)
+        return {'warning': f'已创建空目录: {source_dir}', 'processed': 0}
 
     stats = {
         'processed': 0,

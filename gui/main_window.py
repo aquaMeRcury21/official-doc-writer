@@ -11,6 +11,8 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
+# 先导入 backend（修正 settings 路径），再导入各 Widget
+from gui import backend  # noqa: F401
 from gui.widgets.archive_widget import ArchiveWidget
 from gui.widgets.draft_widget import DraftWidget
 from gui.widgets.knowledge_widget import KnowledgeWidget

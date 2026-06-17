@@ -18,6 +18,7 @@ from PyQt6.QtWidgets import (
 from utils.rag_engine import RAGEngine
 
 LAYER_NAMES = {
+    'all': '全部知识库',
     'global': '全局知识（政策/讲话）',
     'category': '分类知识（范文）',
     'archive': '归档文稿（查重）',
@@ -150,6 +151,8 @@ class KnowledgeWidget(QWidget):
             return
 
         layer = self.layer_combo.currentData()
+        if layer == 'all':
+            layer = None
         self.btn_search.setEnabled(False)
         self.result_list.clear()
         self.detail_view.setHtml('<p style="color: #7f8c8d;">搜索中...</p>')

@@ -27,6 +27,8 @@ def _init_workspace():
     (exe_dir / 'output').mkdir(parents=True, exist_ok=True)
     # 创建 archive 子目录
     (exe_dir / 'knowledge-base' / 'archive').mkdir(parents=True, exist_ok=True)
+    # 创建 kb-inbox 目录
+    (exe_dir / 'kb-inbox').mkdir(parents=True, exist_ok=True)
     # 生成默认 .env 模板
     env_dst = exe_dir / '.env'
     if not env_dst.exists():

@@ -19,8 +19,9 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
+import utils.settings
+
 from utils.knowledge_base_updater import process_all as scan_and_update
-from utils.settings import ARCHIVE_DIR
 
 
 class ArchiveWidget(QWidget):
@@ -124,7 +125,7 @@ class ArchiveWidget(QWidget):
         src = Path(path)
         try:
             date_str = datetime.now().strftime('%Y%m%d')
-            dst_dir = ARCHIVE_DIR / date_str
+            dst_dir = utils.settings.ARCHIVE_DIR / date_str
             dst_dir.mkdir(parents=True, exist_ok=True)
             dst = dst_dir / src.name
             shutil.copy2(str(src), str(dst))
@@ -136,7 +137,7 @@ class ArchiveWidget(QWidget):
 
     def _refresh(self):
         self.table.setRowCount(0)
-        archive_path = ARCHIVE_DIR
+        archive_path = utils.settings.ARCHIVE_DIR
         if not archive_path.exists():
             return
         files = []
@@ -184,6 +185,14 @@ class ArchiveWidget(QWidget):
         self._refresh()
 
     def _open_folder(self):
-        path = str(ARCHIVE_DIR)
-        if Path(path).exists():
-            os.startfile(path)
+        rows = set()
+        for idx in self.table.selectedIndexes():
+            rows.add(idx.row())
+        if rows:
+            item = self.table.item(min(rows), 0)
+            fpath = item.data(Qt.ItemDataRole.UserRole)
+            folder = str(Path(fpath).parent) if fpath else str(utils.settings.ARCHIVE_DIR)
+        else:
+            folder = str(utils.settings.ARCHIVE_DIR)
+        if Path(folder).exists():
+            os.startfile(folder)
