@@ -8,7 +8,7 @@
 
 ## 问题反馈
 
-- 提交 Bug 或功能建议：[新建 Issue](https://github.com/your-username/official-doc-writer/issues/new)
+- 提交 Bug 或功能建议：[新建 Issue](https://github.com/aquaMeRcury21/official-doc-writer/issues/new)
 - 安全问题请参阅 [SECURITY.md](SECURITY.md)
 
 ## 社区交流

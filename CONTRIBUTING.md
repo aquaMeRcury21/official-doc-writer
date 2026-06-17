@@ -3,7 +3,7 @@
 ## Development Setup
 
 ```bash
-git clone https://github.com/your-username/official-doc-writer.git
+git clone https://github.com/aquaMeRcury21/official-doc-writer.git
 cd official-doc-writer
 pip install -e ".[dev]"
 cp .env.example .env

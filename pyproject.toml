@@ -44,8 +44,8 @@ dev = [
 win32 = ["pywin32>=306"]
 
 [project.urls]
-Homepage = "https://github.com/your-username/official-doc-writer"
-Source = "https://github.com/your-username/official-doc-writer"
+Homepage = "https://github.com/aquaMeRcury21/official-doc-writer"
+Source = "https://github.com/aquaMeRcury21/official-doc-writer"
 
 [tool.setuptools.packages.find]
 include = ["utils*"]

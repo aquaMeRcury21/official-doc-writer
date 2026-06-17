@@ -1,44 +1,29 @@
-# === 安全：涉密数据（不进版本控制） ===
-# knowledge-base 含真实政府公文，仅本地保留
-# 保留目录结构，但忽略内容文件
-knowledge-base/**
-!knowledge-base/**/
-!knowledge-base/.gitkeep
-!knowledge-base/**/.gitkeep
-output/**
-!output/**/
-!output/.gitkeep
-!output/**/.gitkeep
-
-# === 环境变量（含 API Key） ===
-.env
-
-# === 缓存与日志 ===
-utils/.index_cache/
-knowledge-base/tfidf_cache/
-utils/cost_log.jsonl
-.pytest_cache/
-*.log
-
-# === Python ===
+# Python
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
 *.egg-info/
+.eggs/
 dist/
 build/
-*.egg
+*.spec
 
-# === Benchmark ===
-evals-results/
+# Environment
+.env
+.env.example
 
-# === IDE ===
-.idea/
+# IDE
 .vscode/
-*.swp
-*.swo
-*~
+.idea/
 
-# === OS ===
+# OS
 Thumbs.db
 .DS_Store
+
+# Project
+output/
+knowledge-base/tfidf_cache/
+knowledge-base/archive/
+workspace/
+dist_test/
+utils/cost_log.jsonl
+*.exe

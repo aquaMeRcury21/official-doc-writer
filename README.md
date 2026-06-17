@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](pyproject.toml)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
-[![CI](https://github.com/your-username/official-doc-writer/actions/workflows/ci.yml/badge.svg)](https://github.com/your-username/official-doc-writer/actions/workflows/ci.yml)
+[![CI](https://github.com/aquaMeRcury21/official-doc-writer/actions/workflows/ci.yml/badge.svg)](https://github.com/aquaMeRcury21/official-doc-writer/actions/workflows/ci.yml)
 
 </div>
 
@@ -26,7 +26,7 @@ AI 辅助党政公文撰写工作台
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/your-username/official-doc-writer.git
+git clone https://github.com/aquaMeRcury21/official-doc-writer.git
 cd official-doc-writer
 
 # 2. 安装依赖
@@ -140,14 +140,14 @@ print(result.content)
 
 | 层级 | 内容 | 用途 |
 |------|------|------|
-| `global-knowledge/` | 上级政策文件、书记讲话范文 | 权威表述与政治术语参照 |
+| `global-knowledge/` | 上级政策文件、讲话范文 | 权威表述与政治术语参照 |
 | `category-knowledge/` | 按文种分类的范文 | 结构与文风模仿 |
 | `archive/` | 历年已归档产出文稿 | 查重与同期对比 |
 
 ```python
 from utils.rag_engine import RAGEngine
 rag = RAGEngine()
-context = rag.search_as_context('意识形态工作', layer='global', top_k=5)
+context = rag.search_as_context('工作', layer='global', top_k=5)
 ```
 
 ## 公文格式标准
