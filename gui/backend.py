@@ -65,7 +65,7 @@ try:
 except ImportError:
     pass
 
-from utils.api_client import (
+from utils.api_client import (  # noqa: E402
     DeepSeekClient,
 )
 

@@ -16,10 +16,10 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtGui import QFont  # noqa: E402
+from PyQt6.QtWidgets import QApplication  # noqa: E402
 
-from gui.main_window import MainWindow
+from gui.main_window import MainWindow  # noqa: E402
 
 
 def main():
