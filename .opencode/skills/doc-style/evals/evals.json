@@ -1,0 +1,29 @@
+{
+  "skill_name": "doc-style",
+  "description": "公文写作规范技能测试——测试文风规范能力",
+  "evals": [
+    {
+      "id": 1,
+      "name": "口语转公文",
+      "prompt": "请将以下大白话改写成规范的公文语言：\n\n我们局最近搞了一个网络安全检查，发现了好几个问题。局里决定要尽快整改，让各个科室抓紧时间落实。如果搞不好的话，可能要被通报批评。",
+      "expected_output": "规范的公文表述，去除'搞'、'的话'等口语化表达，使用'开展'、'落实'等公文用语",
+      "assertions": [
+        {"name": "无'搞'字", "description": "不含'搞'", "type": "not_contains", "target": "搞"},
+        {"name": "无'的话'", "description": "不含'的话'", "type": "not_contains", "target": "的话"},
+        {"name": "使用公文词", "description": "使用规范公文用语", "type": "matches", "target": "开展|落实|整改|部署"},
+        {"name": "结构完整", "description": "有完整语句结构", "type": "matches", "target": "。\\s*"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "削减AI腔",
+      "prompt": "请消除以下文字中的AI腔调：\n\n在这个瞬息万变的时代背景下，我们深知唯有不断探索与创新，才能在激烈的竞争中立于不败之地。让我们携手共进，共同谱写新时代的华美乐章。",
+      "expected_output": "简洁实在的公文语言，去除空泛的口号式表达",
+      "assertions": [
+        {"name": "无'深知'", "description": "不含'深知'", "type": "not_contains", "target": "深知"},
+        {"name": "无华美乐章", "description": "不含'华美乐章'", "type": "not_contains", "target": "华美乐章|谱写"},
+        {"name": "无唯有", "description": "不含'唯有'", "type": "not_contains", "target": "唯有"}
+      ]
+    }
+  ]
+}

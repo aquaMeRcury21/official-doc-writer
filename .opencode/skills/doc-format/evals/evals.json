@@ -1,0 +1,19 @@
+{
+  "skill_name": "doc-format",
+  "description": "公文格式引擎技能测试——测试格式排版规范是否正确应用",
+  "evals": [
+    {
+      "id": 1,
+      "name": "检查通知格式",
+      "prompt": "请编写一个符合GB/T 9704-2012标准的python-docx脚本，生成一份会议通知。要求：A4纸，页边距上3.7cm下3.5cm左右2.8cm，标题用二号小标宋体，正文用三号仿宋体，发文字号用三号仿宋体居中对齐。",
+      "expected_output": "python-docx代码，设置正确的页边距、字体字号、段落格式",
+      "assertions": [
+        {"name": "页边距上", "description": "上边距3.7cm", "type": "matches", "target": "top.*Centimeters\\(3.7|top.*Pt\\(105"},
+        {"name": "标题字号", "description": "二号≈22pt", "type": "matches", "target": "size.*Pt\\(22\\)|size.*440000|size.*22\\b"},
+        {"name": "正文字体", "description": "三号仿宋", "type": "matches", "target": "仿宋|FangSong"},
+        {"name": "发文字号居中", "description": "发文字号居中对齐", "type": "matches", "target": "alignment.*CENTER|AlignmentType\\.CENTER"},
+        {"name": "A4纸张", "description": "A4纸大小", "type": "matches", "target": "A4|Mm\\(210|Inches\\(8.27"}
+      ]
+    }
+  ]
+}

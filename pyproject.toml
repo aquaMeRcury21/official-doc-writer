@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=75.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "official-doc-writer"
+version = "0.1.0"
+description = "AI-assisted Chinese government document writing workstation"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [
+    { name = "official-doc-writer contributors" },
+]
+keywords = ["chinese-government", "document-writing", "opencode", "ai-writing"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Office Suites",
+    "Natural Language :: Chinese (Simplified)",
+]
+dependencies = [
+    "python-docx>=1.1.0",
+    "scikit-learn>=1.3.0",
+    "numpy>=1.24.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "pdfplumber>=0.10.0",
+    "PyPDF2>=3.0.0",
+    "openpyxl>=3.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5.0",
+    "pre-commit>=3.0",
+]
+win32 = ["pywin32>=306"]
+
+[project.urls]
+Homepage = "https://github.com/your-username/official-doc-writer"
+Source = "https://github.com/your-username/official-doc-writer"
+
+[tool.setuptools.packages.find]
+include = ["utils*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N"]
+
+[tool.ruff.lint.per-file-ignores]
+"utils/wechat_crawler.py" = ["E501"]
+".opencode/**" = ["E", "F", "W", "I", "N"]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

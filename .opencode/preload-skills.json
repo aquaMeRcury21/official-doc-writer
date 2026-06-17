@@ -1,0 +1,37 @@
+{
+  "agentSkills": {
+    "writer": ["official-document-writing", "doc-templates", "doc-format", "doc-style", "doc-rag"],
+    "proofreader": ["doc-proofread", "doc-style"],
+    "grader": ["doc-style", "doc-proofread", "skill-creator"]
+  },
+  "fileTypeSkills": {
+    ".docx": ["doc-format", "doc-proofread"],
+    ".txt": ["doc-style"],
+    ".md": ["doc-style"]
+  },
+  "pathPatterns": {
+    "knowledge-base/**": ["doc-rag"],
+    "**/archive/**": ["doc-proofread"]
+  },
+  "contentTriggers": {
+    "通知": ["doc-templates"],
+    "请示": ["doc-templates"],
+    "报告": ["doc-templates"],
+    "函": ["doc-templates"],
+    "纪要": ["doc-templates"],
+    "总结": ["doc-templates"],
+    "讲话稿": ["doc-templates"],
+    "简报": ["doc-templates"],
+    "方案": ["doc-templates"],
+    "校对": ["doc-proofread"],
+    "审核": ["doc-proofread"],
+    "核稿": ["doc-proofread"],
+    "润色": ["doc-style"],
+    "归档": ["doc-rag"]
+  },
+  "injectionMethod": "systemPrompt",
+  "maxTokens": 8000,
+  "showToasts": true,
+  "enableTools": true,
+  "persistAfterCompaction": true
+}

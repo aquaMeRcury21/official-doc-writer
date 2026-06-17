@@ -1,0 +1,10 @@
+include README.md
+include LICENSE
+include CHANGELOG.md
+include CONTRIBUTING.md
+include SECURITY.md
+include SUPPORT.md
+recursive-include utils/templates *.txt
+recursive-include .opencode/skills *.*
+recursive-exclude * __pycache__
+recursive-exclude * *.pyc

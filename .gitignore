@@ -1,0 +1,44 @@
+# === 安全：涉密数据（不进版本控制） ===
+# knowledge-base 含真实政府公文，仅本地保留
+# 保留目录结构，但忽略内容文件
+knowledge-base/**
+!knowledge-base/**/
+!knowledge-base/.gitkeep
+!knowledge-base/**/.gitkeep
+output/**
+!output/**/
+!output/.gitkeep
+!output/**/.gitkeep
+
+# === 环境变量（含 API Key） ===
+.env
+
+# === 缓存与日志 ===
+utils/.index_cache/
+knowledge-base/tfidf_cache/
+utils/cost_log.jsonl
+.pytest_cache/
+*.log
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# === Benchmark ===
+evals-results/
+
+# === IDE ===
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# === OS ===
+Thumbs.db
+.DS_Store

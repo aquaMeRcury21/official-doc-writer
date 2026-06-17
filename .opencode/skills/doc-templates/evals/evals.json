@@ -1,0 +1,45 @@
+{
+  "skill_name": "doc-templates",
+  "description": "公文文种模板库技能测试——测试是否能正确套用文种模板框架",
+  "evals": [
+    {
+      "id": 1,
+      "name": "起草会议通知",
+      "prompt": "请以XX局名义起草一份关于召开2026年第二季度安全生产工作会议的通知。参会人员：各科室负责人。时间：2026年6月20日上午9:00。地点：局3楼会议室。要求：参会人员提前10分钟签到，手机调至静音。",
+      "expected_output": "通知格式：标题含'通知'，有主送机关、正文（会议时间地点人员要求）、发文机关、成文日期",
+      "assertions": [
+        {"name": "含通知字样", "description": "标题含'通知'", "type": "contains", "target": "通知"},
+        {"name": "含会议时间", "description": "正文含会议时间", "type": "contains", "target": "6月20日"},
+        {"name": "含会议地点", "description": "正文含会议地点", "type": "contains", "target": "3楼"},
+        {"name": "层次序号", "description": "日期格式正确", "type": "matches", "target": "2026年\\s*6月\\s*20日"},
+        {"name": "无AI腔", "description": "不含禁用词", "type": "not_contains", "target": "首先"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "起草经费请示",
+      "prompt": "请代XX局起草一份向市政府申请2026年网络安全改造项目经费的请示。项目总预算85万元，主要用于防火墙升级、服务器加固和人员培训。附件：项目预算明细表。",
+      "expected_output": "请示格式：一文一事，标题含'请示'，正文有理由、事项、结语'妥否，请批示'",
+      "assertions": [
+        {"name": "文种正确", "description": "标题含'请示'", "type": "contains", "target": "请示"},
+        {"name": "结语正确", "description": "含请示结语", "type": "contains", "target": "请批示"},
+        {"name": "一事一请", "description": "仅请求一个事项", "type": "not_contains", "target": "同时"},
+        {"name": "金额准确", "description": "含85万元", "type": "contains", "target": "85"},
+        {"name": "层级结构", "description": "有段落分层", "type": "matches", "target": "。\\s*\\n\\s*"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "起草工作函",
+      "prompt": "请代XX市发改局起草一份致YY市发改局的函，商请协助调研当地新能源产业发展情况，拟于2026年7月上旬组织3人调研组赴贵市学习，请协助安排座谈和实地考察。",
+      "expected_output": "函格式：标题含'函'，有发文字号、正文商洽语气、结语'盼复'或'此函'",
+      "assertions": [
+        {"name": "文种正确", "description": "标题含'函'", "type": "contains", "target": "函"},
+        {"name": "商洽语气", "description": "含商洽用语", "type": "matches", "target": "商请|请协助|烦请"},
+        {"name": "时间明确", "description": "含7月", "type": "contains", "target": "7月"},
+        {"name": "无请示语", "description": "不使用请示用语", "type": "not_contains", "target": "请示"},
+        {"name": "结构完整", "description": "有发文机关", "type": "contains", "target": "发改局"}
+      ]
+    }
+  ]
+}

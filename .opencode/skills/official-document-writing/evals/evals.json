@@ -1,0 +1,40 @@
+{
+  "skill_name": "official-document-writing",
+  "description": "公文撰写核心编排技能测试——测试文种判断和工作流编排能力",
+  "evals": [
+    {
+      "id": 1,
+      "name": "文种判断-请示",
+      "prompt": "我们单位需要购买一批办公设备，预算15万元，需要向市财政局申请经费，请你帮忙起草相关公文。",
+      "expected_output": "判断文种为'请示'，按请示格式起草，说明一文一事原则",
+      "assertions": [
+        {"name": "文种正确", "description": "使用请示文种", "type": "contains", "target": "请示"},
+        {"name": "金额准确", "description": "含15万元", "type": "contains", "target": "15"},
+        {"name": "一事一请", "description": "无多个请求事项", "type": "not_contains", "target": "同时"},
+        {"name": "格式完整", "description": "有请示结语", "type": "matches", "target": "妥否|请批示|请批复"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "文种判断-函",
+      "prompt": "隔壁市XX局想找我们借一份内部培训资料学习参考，对方发函过来了，需要帮领导起草回函。",
+      "expected_output": "判断文种为'函'，不相隶属机关之间用函，措辞礼貌商洽",
+      "assertions": [
+        {"name": "文种正确", "description": "使用函文种", "type": "contains", "target": "函"},
+        {"name": "无请示语", "description": "不使用请示用语", "type": "not_contains", "target": "请示|批复"},
+        {"name": "语气得当", "description": "措辞礼貌平等", "type": "matches", "target": "贵局|商|复函"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "工作流-处理素材",
+      "prompt": "我手头有以下几个信息：1）局长要我们在下周五前交上半年工作总结；2）各科室数据还没收齐；3）去年的总结模板在知识库里。请帮我规划起草思路。",
+      "expected_output": "按官方写作工作流：先确定文种（总结）→ 加载模板 → 检索知识库范文 → 制定提纲 → 起草 → 自查",
+      "assertions": [
+        {"name": "判断文种", "description": "识别为总结", "type": "contains", "target": "总结"},
+        {"name": "提及知识库", "description": "建议检索知识库", "type": "matches", "target": "知识库|范文"},
+        {"name": "步骤完整", "description": "有完整的起草规划", "type": "matches", "target": "模板|自查|校对"}
+      ]
+    }
+  ]
+}

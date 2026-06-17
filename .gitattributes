@@ -1,0 +1,16 @@
+* text=auto
+
+*.py text
+*.md text
+*.txt text
+*.json text
+*.toml text
+*.yml text
+*.yaml text
+*.env.example text
+
+*.docx binary
+*.png binary
+*.jpg binary
+*.pkl binary
+*.npz binary
