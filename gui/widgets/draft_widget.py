@@ -2,6 +2,7 @@ import threading
 
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import (
+    QCheckBox,
     QComboBox,
     QHBoxLayout,
     QLabel,
@@ -89,6 +90,9 @@ class DraftWidget(QWidget):
         form_layout.addWidget(self.context)
 
         form_layout.addSpacing(12)
+        self.chk_web_search = QCheckBox('自动搜索网络')
+        self.chk_web_search.setChecked(True)
+
         btn_row = QHBoxLayout()
         self.btn_generate = QPushButton('起草全文')
         self.btn_generate.setObjectName('primaryBtn')
@@ -105,6 +109,9 @@ class DraftWidget(QWidget):
         self.btn_clear.setObjectName('secondaryBtn')
         self.btn_clear.clicked.connect(self._clear)
         btn_row.addWidget(self.btn_clear)
+
+        btn_row.addSpacing(16)
+        btn_row.addWidget(self.chk_web_search)
         btn_row.addStretch()
         form_layout.addLayout(btn_row)
 
@@ -151,10 +158,37 @@ class DraftWidget(QWidget):
             QMessageBox.warning(self, '提示', '请先输入写作需求')
             return
         ctx = self.context.toPlainText().strip()
-        full_req = f'起草一份{doc_type}。\n需求：{req}'
-        if ctx:
-            full_req += f'\n补充信息：{ctx}'
-        self._do_generate(full_req)
+
+        if self.chk_web_search.isChecked():
+            self._generate_with_search(doc_type, req, ctx)
+        else:
+            full_req = f'起草一份{doc_type}。\n需求：{req}'
+            if ctx:
+                full_req += f'\n补充信息：{ctx}'
+            self._do_generate(full_req)
+
+    def _generate_with_search(self, doc_type, req, ctx):
+        self._set_buttons_enabled(False)
+        self.status_label.setText('正在搜索网络参考资料...')
+        self.editor.clear()
+
+        def task():
+            try:
+                from gui.backend import web_search_context
+                web_ctx = web_search_context(req)
+                full_req = f'起草一份{doc_type}。\n需求：{req}'
+                if ctx:
+                    full_req += f'\n补充信息：{ctx}'
+                if web_ctx:
+                    full_req += f'\n\n参考信息：\n{web_ctx}'
+                client = deepseek_client()
+                result = client.chat(full_req, task_type='draft')
+                content = result.content or '生成失败'
+            except Exception as e:
+                content = f'错误: {str(e)}'
+            self.generate_finished.emit(content, False)
+
+        threading.Thread(target=task, daemon=True).start()
 
     def _generate_outline(self):
         doc_type = self.doc_type.currentText()

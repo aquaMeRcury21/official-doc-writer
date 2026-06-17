@@ -73,3 +73,49 @@ from utils.api_client import (  # noqa: E402
 def deepseek_client() -> DeepSeekClient:
     """获取已配置的 DeepSeek 客户端实例"""
     return DeepSeekClient.from_env()
+
+
+# ── 网络搜索集成 ──────────────────────────
+
+def web_search_context(query: str) -> str:
+    """全自动搜索流程：提取关键词 → 双引擎搜索 → 重排序 → 返回格式化上下文"""
+    from gui.web_search import extract_keywords, search_combined, rerank  # noqa: I001
+
+    # 获取 API Key 用于关键词提取
+    api_key = ''
+    try:
+        _client = deepseek_client()
+        api_key = _client.api_key
+    except Exception:
+        pass
+
+    keywords = extract_keywords(query, api_key=api_key)
+    logger = __import__('logging').getLogger(__name__)
+    logger.info('搜索关键词: %s', keywords)
+
+    all_results = []
+    for kw in keywords:
+        results = search_combined(kw, max_results=3)
+        all_results.extend(results)
+
+    # 去重
+    seen = set()
+    deduped = []
+    for r in all_results:
+        url = r.get('url', '')
+        if url and url not in seen:
+            seen.add(url)
+            deduped.append(r)
+
+    # 重排序
+    ranked = rerank(query, deduped)[:5]
+
+    if not ranked:
+        return ''
+
+    parts = []
+    for r in ranked:
+        parts.append(
+            f"- [{r['source']}] {r['title']}\n  {r.get('snippet', '')}\n  {r['url']}"
+        )
+    return '以下是与需求相关的网络参考资料：\n\n' + '\n'.join(parts)
