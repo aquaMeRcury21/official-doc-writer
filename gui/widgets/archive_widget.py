@@ -20,7 +20,6 @@ from PyQt6.QtWidgets import (
 )
 
 import utils.settings
-
 from utils.knowledge_base_updater import process_all as scan_and_update
 
 
