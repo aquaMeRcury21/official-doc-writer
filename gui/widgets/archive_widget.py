@@ -97,6 +97,7 @@ class ArchiveWidget(QWidget):
         self._refresh()
 
     def _scan_inbox(self):
+        (utils.settings.ROOT / 'kb-inbox').mkdir(parents=True, exist_ok=True)
         self.btn_scan.setEnabled(False)
         self.status_label.setText('正在扫描 kb-inbox...')
 
