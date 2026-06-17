@@ -60,6 +60,7 @@ select = ["E", "F", "W", "I", "N"]
 [tool.ruff.lint.per-file-ignores]
 "utils/wechat_crawler.py" = ["E501"]
 ".opencode/**" = ["E", "F", "W", "I", "N"]
+"gui/*" = ["E402"]
 
 [tool.ruff.format]
 quote-style = "single"

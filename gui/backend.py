@@ -1,7 +1,7 @@
 """GUI 工具函数 —— 封装与后端模块的交互"""
 
-import sys
 import shutil
+import sys
 from pathlib import Path
 
 
