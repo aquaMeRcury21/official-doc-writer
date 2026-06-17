@@ -5,13 +5,27 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](pyproject.toml)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
-[![CI](https://github.com/aquaMeRcury21/official-doc-writer/actions/workflows/ci.yml/badge.svg)](https://github.com/aquaMeRcury21/official-doc-writer/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/aquaMeRcury21/official-doc-writer)](https://github.com/aquaMeRcury21/official-doc-writer/releases)
+
+**⬇️ [下载 v0.2.0 便携版 exe](https://github.com/aquaMeRcury21/official-doc-writer/releases/tag/v0.2.0) （Windows 单文件，双击即用）**
 
 </div>
 
-AI 辅助党政公文撰写工作台
+AI 辅助党政公文撰写工作台。提供 PyQt6 桌面端 + OpenCode CLI 两种使用方式，严格遵循 **GB/T 9704-2012《党政机关公文格式》** 国家标准。
 
-基于 [OpenCode](https://opencode.ai) 构建，提供从起草、校对、评估到归档的全流程公文写作支持，严格遵循 **GB/T 9704-2012《党政机关公文格式》** 国家标准。
+## GUI 桌面版（推荐）
+
+[下载 `公文撰写工作站.exe`](https://github.com/aquaMeRcury21/official-doc-writer/releases/tag/v0.2.0) → 双击运行 → 设置页填入 API Key → 立即使用。
+
+| 面板 | 功能 |
+|------|------|
+| **起草** | 选文种 → 写需求 → AI 生成 → 编辑 → 导出 .docx（自动更新知识库索引） |
+| **校对** | 粘贴全文 → AI 9 维深度校对 → 格式化报告输出 |
+| **知识库** | 三层语义检索（global / category / archive），一键重建索引 |
+| **归档** | 浏览归档文件，批量扫描入库 |
+| **设置** | 单位信息、API Key、日预算，保存即生效 |
+
+首次启动自动解压知识库，无需手动配置。
 
 ## 核心功能
 
@@ -22,7 +36,7 @@ AI 辅助党政公文撰写工作台
 - **API 费用管控** — DeepSeek 调用日志记录 + 日预算上限，防止超额
 - **AI 腔清除** — 内置语料库和检查规则，自动识别并修正 LLM 常见套路化表达
 
-## 快速开始
+## 开发者：从源码运行
 
 ```bash
 # 1. 克隆项目
@@ -38,11 +52,14 @@ cp .env.example .env
 
 # 4. 索引知识库
 python -c "from utils.rag_engine import RAGEngine; RAGEngine().index_all()"
+
+# 5. 启动 GUI
+python gui/main.py
 ```
 
 ## 配合 OpenCode 使用
 
-本项目设计为与 [OpenCode](https://opencode.ai)（AI 编程助手）配合使用。
+本项目也可与 [OpenCode](https://opencode.ai)（AI 编程助手）配合使用。
 
 ```bash
 # 安装 OpenCode
@@ -113,25 +130,26 @@ print(result.content)
 ## 项目结构
 
 ```
-├── AGENTS.md                    OpenCode AI 助手指令（面向 AI）
-├── opencode.json                OpenCode 工作区配置
-├── utils/                       Python 工具库
-│   ├── api_client.py            DeepSeek API 客户端（重试/计费/模型路由）
-│   ├── rag_engine.py            TF-IDF 语义检索引擎
-│   ├── document_generator.py    GB/T 9704-2012 格式 .docx 生成器
-│   ├── document_parser.py       多格式文档解析器（txt/docx/pdf/xlsx）
-│   ├── cost_tracker.py          API 费用跟踪与预算控制
-│   ├── settings.py              全局配置（路径、组织名称等）
-│   └── templates/               9 种公文文种参考模板
-├── .opencode/                   OpenCode 技能、命令、Agent 配置
-│   ├── skills/                  8 个专业技能（格式/校对/RAG/文种模板等）
-│   ├── commands/                14 个斜杠命令
-│   └── agent/                   3 个自定义 Agent
-├── knowledge-base/              三层知识库（仅保留目录结构）
-├── output/                       年度产出目录（仅保留目录结构）
-├── workspace/                    临时工作目录
-├── tests/                       单元测试
-└── docs/                        文档
+├── gui/                        PyQt6 桌面端
+│   ├── main.py                 入口
+│   ├── backend.py              后端封装（路径/API 客户端）
+│   ├── main_window.py          主窗口（侧边栏导航 + 页面栈）
+│   ├── widgets/                5 个功能面板
+│   └── resources/styles.qss    界面样式表
+├── utils/                      Python 工具库
+│   ├── api_client.py           DeepSeek API 客户端（重试/计费/模型路由）
+│   ├── rag_engine.py           TF-IDF 语义检索引擎
+│   ├── document_generator.py   GB/T 9704-2012 格式 .docx 生成器
+│   ├── document_parser.py      多格式文档解析器（txt/docx/pdf/xlsx）
+│   ├── cost_tracker.py         API 费用跟踪与预算控制
+│   ├── settings.py             全局配置（路径、组织名称等）
+│   └── templates/              9 种公文文种参考模板
+├── .opencode/                  OpenCode 技能、命令、Agent 配置
+├── knowledge-base/             三层知识库
+├── output/                     年度产出目录
+├── workspace/                  临时工作目录
+├── tests/                      单元测试
+└── docs/                       文档
 ```
 
 ## 知识库架构
@@ -150,23 +168,38 @@ rag = RAGEngine()
 context = rag.search_as_context('工作', layer='global', top_k=5)
 ```
 
-## 公文格式标准
+## 公文格式标准（GB/T 9704-2012）
 
-严格遵循 **GB/T 9704-2012**：
-
-| 项目 | 参数 |
-|------|------|
-| 标题 | 方正小标宋简体 2号（22pt） |
-| 正文 | 仿宋_GB2312 3号（16pt） |
-| 行距 | 固定值 28pt |
-| 页边距 | 上 3.7cm 下 3.5cm 左 2.8cm 右 2.6cm |
-| 层次序号 | 一、 （一） 1. （1） |
+| 项目 | 参数 | 实测 |
+|------|------|------|
+| 页面 | 21.0 × 29.7 cm | OK |
+| 上边距 | 3.7 cm | OK |
+| 下边距 | 3.5 cm | OK |
+| 左边距 | 2.8 cm | OK |
+| 右边距 | 2.6 cm | OK |
+| 标题 | 方正小标宋简体 2号（22pt） | OK |
+| 正文 | 仿宋_GB2312 3号（16pt） | OK |
+| 行距 | 固定值 28pt | OK |
+| 引号 | 全角弯引号 | OK |
+| 层次序号 | 一、 （一） 1. （1） | |
 
 ## 系统要求
 
-- Python 3.13+
-- DeepSeek API Key（[申请地址](https://platform.deepseek.com)）
-- 推荐配合 OpenCode 使用
+**GUI 桌面版：** Windows 10/11（无需 Python）
+
+**源码运行：** Python 3.13+
+
+**通用：** DeepSeek API Key（[申请地址](https://platform.deepseek.com)）
+
+## 技术栈
+
+| 组件 | 用途 |
+|------|------|
+| Python 3.13 | 运行时 |
+| PyQt6 | 桌面 GUI |
+| scikit-learn | TF-IDF 语义检索（RAG 引擎） |
+| python-docx | 公文格式 .docx 生成 |
+| PyInstaller | 单文件 exe 打包 |
 
 ## 贡献指南
 
