@@ -7,7 +7,7 @@
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 [![Release](https://img.shields.io/github/v/release/aquaMeRcury21/official-doc-writer)](https://github.com/aquaMeRcury21/official-doc-writer/releases)
 
-**⬇️ [下载 v0.2.0 便携版 exe](https://github.com/aquaMeRcury21/official-doc-writer/releases/tag/v0.2.0) （Windows 单文件，双击即用）**
+**⬇️ [下载 v0.2.0](https://github.com/aquaMeRcury21/official-doc-writer/releases/tag/v0.2.0)（`official-doc-writer.exe`，Windows 单文件，双击即用）**
 
 </div>
 
@@ -19,7 +19,7 @@ AI 辅助党政公文撰写工作台。提供 PyQt6 桌面端 + OpenCode CLI 两
 
 | 面板 | 功能 |
 |------|------|
-| **起草** | 选文种 → 写需求 → AI 生成 → 编辑 → 导出 .docx（自动更新知识库索引） |
+| **起草** | 选文种 → 写需求 → AI 自动搜索网络 → AI 生成 → 编辑 → 导出 .docx（自动更新知识库索引） |
 | **校对** | 粘贴全文 → AI 9 维深度校对 → 格式化报告输出 |
 | **知识库** | 三层语义检索（global / category / archive），一键重建索引 |
 | **归档** | 浏览归档文件，批量扫描入库 |
@@ -30,6 +30,7 @@ AI 辅助党政公文撰写工作台。提供 PyQt6 桌面端 + OpenCode CLI 两
 ## 核心功能
 
 - **AI 智能起草** — 支持通知、请示、报告、讲话稿、简报、方案、纪要、函、工作总结等 9 种常用文种
+- **自动网络搜索** — 起草前自动搜索百度 + Bing，提取政策文件、官方公众号文章等作为 AI 参考上下文
 - **国标格式输出** — 自动生成符合 GB/T 9704-2012 的 `.docx` 文件（页边距、字体字号、行距、层次序号全自动）
 - **9 维深度校对** — 错别字、语法语病、标点符号、层次序号、政治表述、数据逻辑矛盾、AI 腔与禁用词、内部查重、文风对齐
 - **RAG 知识库检索** — 三层 TF-IDF 语义搜索（政策文件 / 分类范文 / 历年归档），动笔前自动匹配参考范文
